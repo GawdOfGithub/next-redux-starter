@@ -1,66 +1,45 @@
-/* Components */
-import { Providers } from '@/lib/providers'
-import { Nav } from './components/Nav'
 
-/* Instruments */
-import styles from './styles/layout.module.css'
-import './styles/globals.css'
+import './globals.css'
+import type { Metadata } from 'next'
+import { Inter } from 'next/font/google'
+import Navbar from './components/Navbar'
+import MainContextProvider from './Contexts/MainContext'
+import FishTheme from './components/FishTheme'
 
-export default function RootLayout(props: React.PropsWithChildren) {
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata: Metadata = {
+  title: 'NEXT_STARTER-TEMPLATE',
+  description: 'THe best way to start your next app',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <Providers>
-      <html lang="en">
-        <body>
-          <section className={styles.container}>
-            <Nav />
+    <html lang="en">
+      <head>
+        {/* Include metadata here */}
+        
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"></link>
+      </head>
 
-            <header className={styles.header}>
-              <img src="/logo.svg" className={styles.logo} alt="logo" />
-            </header>
-
-            <main className={styles.main}>{props.children}</main>
-
-            <footer className={styles.footer}>
-              <span>Learn </span>
-              <a
-                className={styles.link}
-                href="https://reactjs.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                React
-              </a>
-              <span>, </span>
-              <a
-                className={styles.link}
-                href="https://redux.js.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Redux
-              </a>
-              <span>, </span>
-              <a
-                className={styles.link}
-                href="https://redux-toolkit.js.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Redux Toolkit
-              </a>
-              ,<span> and </span>
-              <a
-                className={styles.link}
-                href="https://react-redux.js.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                React Redux
-              </a>
-            </footer>
-          </section>
-        </body>
-      </html>
-    </Providers>
+     <MainContextProvider>
+    
+      <body className={inter.className}>
+        <div className='min-h-screen '>
+          
+          <Navbar />
+           <FishTheme/> 
+          {children}
+        </div>
+       
+      </body>
+      </MainContextProvider>
+    </html>
   )
 }
